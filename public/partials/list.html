@@ -1,0 +1,67 @@
+<section class="list-page">
+	<div class="navbar navbar-inverse navbar-fixed-top">
+    	<div class="container">
+        	<div class="navbar-header">
+          	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            	<span class="icon-bar"></span>
+            	<span class="icon-bar"></span>
+            	<span class="icon-bar"></span>
+          	</button>
+          	<a class="navbar-brand" href="index.html">Chlora</a>
+        	</div>
+	        <div class="navbar-collapse collapse">
+	          	<ul class="nav navbar-nav navbar-right">
+					<li><button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#logInModal" >Sign In</button></li>
+	          	</ul>
+	        </div><!--/.nav-collapse -->
+      	</div>
+    </div>
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="panel panel-cascade recipient-box">
+				<div class="panel-heading">
+					<h3 class="panel-title ">
+						<span class="recipient">
+							Suggested For You							
+						</span>
+						<div class="btn-group pull-right">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								Options <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu options" role="menu">
+								<li><a href="#">Sort By Name</a></li>
+								<li><a href="#">Sort By Speciality</a></li>
+								<li><a href="#">Sort By Location</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Customize Your Search</a></li>
+							</ul>
+						</div>
+					</h3>
+				</div>
+				<div class="panel-body nopadding">
+					<div class="" ng-controller="ListController">
+						<div ng-repeat="doctor in doctors | limitTo : 5">
+							<a href="#/doctorprofile/{{doctors.indexOf(doctor)}}" class="list-group-item">
+								<div class="row">
+									<img src="images/profile50x50.jpg" class="chat-user-avatar col-md-2" alt="" style="float : left;" > 
+									<div class="col-md-6">
+										<span class="username" ><h4>{{doctor.doctor_name[0]}}</h4></span>
+										<p>{{doctor.doctor_speciality}}</p>
+										<p>{{doctor.doctor_fees[0]}}</p>									
+										
+										<p>{{doctor.doctor_location[0]}}</p>									
+										
+
+									</div>
+									<div class="col-md-4">
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section>

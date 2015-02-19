@@ -1,0 +1,73 @@
+#Sanjit Roy
+15th July, 2014{
+
+    Sample data written
+    Markers added
+    User position marker added
+    JQuery initialised
+    Google navigation written
+}
+
+
+16th July, 2014{
+    Tested custom markers
+    Profile pic change support added
+}
+
+17th July, 2014{
+    Tested nearby places- algorithm fail
+}
+
+18th July, 2014{
+    Database implemented- Working{
+        registering users with default lat,lon
+        Showing markers
+        Can search for locations
+        Updates users geo-location
+    }
+}
+
+20th July, 2014{
+    improved site UI
+    supports mobile viewing as well
+}
+
+23rd July, 2014{
+    Shows GPS position in realtime
+    Loads marker at the start of map
+    New UI methods
+    User marker seperated from the pujo marker array.
+}
+
+24th July, 2014{
+    Image slideshow completed
+    Countdown timer added
+    Nearest places algorithm optimized
+    Map UI changed
+    New schema for pujo pandal database designed
+
+    ***LOC 1500 lines***
+}
+
+#Shruti Ghosh
+12th July{
+    Filled database with 30 puja locations
+}
+
+14th July{
+    Filled database with all north calcutta puja locations
+}
+
+20th July{
+    Filled database with 30 south calcutta puja locations
+}
+
+24th July{
+    Filled database with 210 pujas
+}
+
+
+#Anirban Barik:
+24th July{
+    Made pandal marker
+}
