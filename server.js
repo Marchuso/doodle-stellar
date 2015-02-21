@@ -1,13 +1,18 @@
 // server.js
 
     // set up ========================
-    var express  = require('express');
-    var god      = express();                               // create our app w/ express
-    var mongoose = require('mongoose');                     // mongoose for mongodb
-    var morgan   = require('morgan');                         // log requests to the console (express4)
-    var bodyParser = require('body-parser');                // pull information from HTML POST (express4)
-    var methodOverride = require('method-override');
-    var data = require(__dirname + '/data/doctors-data.json') ;        // simulate DELETE and PUT (express4)
+    var express  = require('express') ;
+    var god      = express() ;                               // create our app w/ express
+    var mongoose = require('mongoose') ;                     // mongoose for mongodb
+    var morgan   = require('morgan') ;                         // log requests to the console (express4)
+    var bodyParser = require('body-parser') ;  
+    var cookieParser = require('cookie-parser') ;              // pull information from HTML POST (express4)
+    var methodOverride = require('method-override') ;
+    var passport = require('passport') ;
+    var localStrategy = require('passport-local').Strategy ;
+    var flash = require('connect-flash') ;
+    var session = require('express-session') ;
+    //var data = require(__dirname + '/data/doctors-data.json') ;        // simulate DELETE and PUT (express4)
 
     // configuration =================
 
@@ -20,7 +25,11 @@
     god.use(bodyParser.json());                                     // parse application/json
     god.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
     god.use(methodOverride());
-
+    god.use(passport.initialize()) ;
+    god.use(passport.session()) ;
+    god.use(cookieParser()) ;
+    god.use(session({ secret: 'denialangerbargaindepressionacceptance'})) ;
+    god.use(flash()) ;
     
     //=====================================================//
     /*
@@ -180,8 +189,63 @@
             response.json(retrieved) ;
         }) ;
     }) ;
-    
-    
+    /*
+    god.get('/', function(request, response){
+        response.sendfile('./public/index.html') ;
+    }) ;
+
+    god.get('/login', function(request, response){
+        response.sendfile('./public/home.html') ;
+    }) ;*/
+
+   god.get('*', function(request, response) {
+        console.log("Finding home..") ;
+        response.sendfile('./public/home.html'); // load the single view file (angular will handle the page changes on the front-end)
+    });
+
+   god.post('/login', passport.authenticate('local-login', {
+        successRedirect : '/',
+        failureRedirect : './public/index.html'
+   })) ;
+
+   function isLoggedIn(request, response, next){
+        if(request.isAuthenticated()){
+            return next() ;
+        }
+        console.log("Unauthenticated user") ;
+        response.redirect('./public/index.html') ;
+   }
+
+
+   passport.serializeUser(function(user, complete){
+        complete(null, user.id) ;
+   }) ;
+
+   passport.deserializeUser(function(user, complete){
+        Users.findById(id, function(error, user){
+            done(error, user) ;
+        })    
+   }) ;
+
+
+   passport.use('local-login', new localStrategy({
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true
+   },
+   function(request, email, password, complete){
+        Users.findOne({'emailID': email}, function(error, user){
+            if(error){
+                return complete(error) ;
+            }
+
+            if(!user){
+                return complete(null, false) ;
+            }
+
+            return complete(null, user) ;
+        }) ;
+   })) ;
     
     //==========================================================================//
     //var Users = mongoose.model('Employees',EmployeeSchema) ;
