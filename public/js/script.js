@@ -3,10 +3,11 @@ var myApp = angular.module('myApp',[
 	'doctorsController'
 ]);
 
-myApp.config(['$routeProvider', function($routeProvider){
+myApp.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider){
 	$routeProvider.
 	when('/', {
-		templateUrl : 'partials/login.html'
+		templateUrl : 'partials/search.html',
+		controller: 'SearchController'
 	}).
 	when('/list' , {
 		templateUrl : 'partials/list.html',
@@ -16,7 +17,13 @@ myApp.config(['$routeProvider', function($routeProvider){
 		templateUrl : 'partials/doctorprofile.html' , 
 		controller : 'ProfileViewController'
 	}).
+	when('/signin', {
+		templateUrl: 'partials/login.html' ,
+		controller: 'AuthenticationController'
+	}).
 	otherwise({
 		redirectTo : '/'
 	});
+
+	//$locationProvider.html5Mode(true) ;
 }]);

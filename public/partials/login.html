@@ -32,7 +32,7 @@
             <div class="control-group">
               <label class="control-label" for="userid">Alias:</label>
               <div class="controls">
-                <input required="" id="userid" name="userid" type="text" class="form-control input-medium" placeholder="User Name">
+                <input required="" id="userid" name="userid" type="text" class="form-control input-medium" placeholder="User Name" ng-model="logInData.userName">
               </div>
             </div>
 
@@ -40,7 +40,7 @@
             <div class="control-group">
               <label class="control-label" for="passwordinput">Password:</label>
               <div class="controls">
-                <input required="" id="passwordinput" name="passwordinput" class="form-control input-medium" type="password" placeholder="********">
+                <input required="" id="passwordinput" name="passwordinput" class="form-control input-medium" type="password" placeholder="********" ng-model="logInData.password">
               </div>
             </div>
 
@@ -64,7 +64,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <a href="#/list"><button type="button" class="btn btn-primary">Sign In</button></a>
+        <button type="button" class="btn btn-primary" ng-click="logIn()">Sign In</button>
       </div>
     </div>
   </div>
@@ -116,9 +116,9 @@
 					<h2 class="subtitle">Want to get a sneak peak into the Chlora engine ?</h2>
 					<form class="form-inline signup" role="form">
 					  <div class="form-group">
-					    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter your email address">
+					    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter your email address" ng-model="subscribeEmail">
 					  </div>
-					  <button type="submit" class="btn btn-theme">Subscribe Me</button>
+					  <button type="submit" class="btn btn-theme" ng-click="subscribeUser()">Subscribe Me</button>
 					</form>
 				</div>
 				

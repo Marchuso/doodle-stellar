@@ -7,6 +7,7 @@
     var morgan   = require('morgan');                         // log requests to the console (express4)
     var bodyParser = require('body-parser');                // pull information from HTML POST (express4)
     var methodOverride = require('method-override');
+    var jot = require('jsonwebtoken') ;
     var data = require(__dirname + '/data/doctors-data.json') ;        // simulate DELETE and PUT (express4)
 
     // configuration =================
@@ -20,7 +21,12 @@
     god.use(bodyParser.json());                                     // parse application/json
     god.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
     god.use(methodOverride());
-
+    /*god.use(function(request, response, next){
+        response.setHeader('Access-Control-Allow-Origin', '*') ;
+        response.setHeader('Access-Control-Allow-Methods', 'GET, POST') ;
+        response.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization') ;
+    }) ;
+*/
     
     //=====================================================//
     /*
@@ -44,7 +50,8 @@
         firstName: String ,
         lastName: String ,
         emailID: String ,
-        password: String
+        password: String,
+        token: String
     }) ;
     //========================================================//
     /*
@@ -67,14 +74,39 @@
     
     //============================================================//
     god.post('/api/v1/LogInUser', function(request, response){
-        Users.find({emailID: request.body.userEmail}, function(error, success){
+        Users.find({emailID: request.body.userName, password: request.body.password}, function(error, success){
           if(error){
             response.send("Error ") ;
           }
+          
+          console.log(success) ;
           response.json(success) ;
         }) ;
         
         
+    }) ;
+
+    god.post('/api/v1/SubscribeUser', function(request, response){
+        var nameSplit = request.body.userEmail.split('@') ;
+        var firstName = nameSplit[0] ;
+        Users.create({firstName: firstName, emailID: request.body.userEmail}, function(error, success){
+          if(error){
+            console.log("Error") ;
+            response.send("Error") ;
+          }
+          else{
+            Users.findOne({emailID: request.body.userEmail}, function(error, success){
+              if(error){
+                console.log("Error") ;
+                response.send("Error") ;
+              }
+          
+                    response.json(success) ;
+                }) ;
+            
+            }
+        
+        }) ;
     }) ;
     
     //needs updation.
